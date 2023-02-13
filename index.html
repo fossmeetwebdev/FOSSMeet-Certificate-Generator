@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!--comment-->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="certificates/static/img/favicon.png" />
+    <!-- <link rel="icon" href="certificates/static/img/favicon.png" /> -->
     <link rel="stylesheet" href="styles.css">
     <title>FOSSCell Certificates</title>
     <style>
@@ -15,11 +14,11 @@
 <body>
     <div id="vanta-canvas">
         <div class="App">
-            <div class="Logos">
+            <!-- <div class="Logos">
               <img src="/certificates/static/img/2Flame.png" style="width: 300px; margin-top: -50px; margin-bottom: -50px; max-width: 80vh;">
-            </div>
-            <h1 class="title">Ragam Certificates</h1>
-            <div>
+            </div> -->
+            <h1 class="title">FOSSCell Certificates</h1>
+            <div id="form">
                 <form class="search-form">
                     <div class='form-control'>
                         <input class="textinput" type='text' id='ID' placeholder="Tathva ID"></input>
@@ -32,6 +31,9 @@
         </div>
         
         <script src="src/index.js"></script>
+        <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+        <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     </div>
 </body>
 </html>

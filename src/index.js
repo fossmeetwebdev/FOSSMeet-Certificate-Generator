@@ -1,115 +1,148 @@
 // const base = "/Ragam-Certificate-Generator"
 // const base =""
-const base = "/certificates"
+const base = "/certificates";
 
 const addText = (text) => {
-    let main = document.querySelector('.main');
-    var h = document.createElement('H3');
-    var t = document.createTextNode(text);
-    h.appendChild(t);
-    main.appendChild(h);
-}
+  let main = document.querySelector(".main");
+  var h = document.createElement("H3");
+  var t = document.createTextNode(text);
+  h.appendChild(t);
+  main.appendChild(h);
+};
 
-const checkTathvaUser = async (tathvaID) => {
+const verifyUser = async (tathvaID) => {
+  let res = await fetch("./participants.json");
+  res = await res.json();
+  if (res[tathvaID]) return res[tathvaID];
+  return null;
+};
 
-    let main = document.querySelector('.main');
-    main.innerHTML = '';
-
-    try {
-        user = await fetch("./ragam-users/" + tathvaID + ".json").then((res) => {
-            return res.json();
-        });
+const titleCase = (str) => {
+  str = str.split(/[ ._]+/);
+  for (var i = 0; i < str.length; i++) {
+    if (str[i].length > 2) {
+      str[i] =
+        str[i].toLowerCase().charAt(0).toUpperCase() +
+        str[i].slice(1).toLowerCase();
     }
-    catch(e) {
-        addText("User not found");
-        return null;
-    }
-    return user;
-}
+  }
+  return str.join(" ");
+};
 
-const checkCAUser = async (caID) => {
+const generateRagamPDF = async (name) => {
+  let main = document.querySelector(".main");
 
-    let main = document.querySelector('.main');
-    main.innerHTML = '';
+  certificate = await fetch("./certificate/details.json").then((res) => {
+    return res.json();
+  });
+  const { PDFDocument, rgb } = PDFLib;
 
-    try {
-        user = await fetch("./ragam-ca/" + MD5(caID) + ".json").then((res) => {
-            return res.json();
-        });
-    }
-    catch(e) {
-        addText("User not found");
-        return null;
-    }
-    return user;
-}
+  const exBytes = await fetch("./certificate/certificate.pdf").then((res) => {
+    return res.arrayBuffer();
+  });
 
-const addLink = (id) => {
-    let main = document.querySelector('.main');
-    var h = document.createElement('H3');
-    var t = document.createTextNode(id);
-    h.appendChild(t);
-    var anchor = document.createElement('a');
-	anchor.setAttribute('href', base + '/user.html?id=' + id+"&category=ragam21");
-    anchor.appendChild(h);
-    main.appendChild(anchor);
-    var enter = document.createElement('br');
-    main.appendChild(enter);
-}
+  const exFont = await fetch("./fonts/GreatVibes-Regular.ttf").then((res) => {
+    return res.arrayBuffer();
+  });
 
-var button = document.getElementById('button')
+  const pdfDoc = await PDFDocument.load(exBytes);
+
+  pdfDoc.registerFontkit(fontkit);
+  const myFont = await pdfDoc.embedFont(exFont);
+
+  const pages = pdfDoc.getPages();
+  const firstPg = pages[0];
+  console.log(name);
+  if (name != null) {
+    name = name.trim();
+    name = titleCase(name);
+    firstPg.drawText(name, {
+      size: certificate.name.fontSize,
+      x: certificate.name.x,
+      y: certificate.name.y,
+      color: rgb(
+        certificate.name.fontColor.r,
+        certificate.name.fontColor.g,
+        certificate.name.fontColor.b
+      ),
+      font: myFont,
+    });
+  }
+
+  var qr = new QRious({
+    value: window.location.href,
+    foreground: certificate.qrCode.foreground,
+    background: certificate.qrCode.background,
+  });
+  qr = qr.toDataURL();
+  const qrImage = await pdfDoc.embedPng(qr);
+
+  firstPg.drawImage(qrImage, {
+    x: certificate.qrCode.x,
+    y: certificate.qrCode.y,
+    width: 150,
+    height: 150,
+  });
+
+  const uri = await pdfDoc.saveAsBase64({ dataUri: true });
+
+  var h = document.createElement("H2");
+  var t = document.createTextNode("Download");
+  h.appendChild(t);
+  //   main.removeChild(main.lastElementChild);
+  main.appendChild(h);
+  var elem = document.createElement("img");
+  elem.setAttribute("src", "./static/img/download-icon.png");
+  elem.setAttribute("id", "download-button");
+  elem.setAttribute("height", "40");
+  elem.setAttribute("width", "40");
+  var anchor = document.createElement("a");
+  anchor.href = uri;
+  anchor.download = "Certificate.pdf";
+  anchor.appendChild(elem);
+  main.appendChild(anchor);
+  var enter = document.createElement("br");
+  main.appendChild(enter);
+};
+
+var button = document.getElementById("button");
 var ID = document.getElementById("ID"); // Get only the element.
 const urlParams = new URLSearchParams(window.location.search);
 const category = urlParams.get("category");
 
-window.onload = (event) => {
-    if(category === "ragam21") {
-        document.getElementById("title").innerHTML = "Ragam Certificates";
-        document.getElementById("ID").placeholder = "Ragam ID / Mail ID / Phone No.";
-    }
-    else if(category == "ca21") {
-        document.getElementById("title").innerHTML = "Campus Ambassador Certificates";
-        document.getElementById("ID").placeholder = "Ref ID / Mail ID / Phone No.";
-    }
-  };
+window.onload = async (event) => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const tathvaID = urlParams.get("id");
+  if (tathvaID) {
+    verifyUser(tathvaID).then((user) => {
+      if (user) {
+        document.getElementById("form").style.display = "none";
+        generateRagamPDF(user);
+      } else {
+        addText("Invalid Tathva ID");
+      }
+    });
+  }
+};
 
-button.addEventListener("click", function(e) {
+button.addEventListener(
+  "click",
+  function (e) {
     e.preventDefault();
-    var s = document.getElementById("categories");
-    var value=s.value;
-    var route = ID.value;
-    if(value == "none") {
-        alert("Choose a Category");
-        return;
+    var tathvaID = ID.value;
+    if (tathvaID.length === 0) {
+      alert("Enter your ID");
+      return;
     }
-    if(route.length === 0){
-        alert("Enter your ID");
-        return;
-    }
-    if(value === "ragam") {
-        const user = checkTathvaUser(route).then(user => {
-            if(user) {
-                const route = user[0].tathvaID;
-                if(user.length < 2) {
-                    window.location.href = base + '/user.html?id=' + route + "&category=ragam21";
-                }
-                else {
-                    addText("Select your Ragam ID");
-                    for(i=0; i<user.length; i++) {
-                        addLink(user[i].tathvaID);
-                    }
-                }
-            }
-        });
-    }
-    else if(value === "ca") {
-        const user = checkCAUser(route).then(user => {
-            if(user) {
-                window.location.href = base + '/event.html?id=' + user.refId + "&category=ca21&event=ca";
-            }
-        });
-    }
-    
-}, false);
-
-        
+    verifyUser(tathvaID).then((user) => {
+      console.log(user);
+      if (user) {
+        window.location.href = window.location.href + "?id=" + tathvaID;
+      } else {
+        addText("Invalid Tathva ID");
+      }
+    });
+  },
+  false
+);
