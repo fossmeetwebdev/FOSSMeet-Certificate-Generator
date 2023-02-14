@@ -6,7 +6,6 @@ const addText = (text) => {
   let h3s = document.querySelectorAll("h3");
   for (let i = 0; i < h3s.length; i++) {
     h3 = h3s[i];
-    console.log("here");
     h3.parentNode.removeChild(h3);
   }
   let main = document.querySelector(".main");
@@ -58,7 +57,6 @@ const generateRagamPDF = async (name) => {
 
   const pages = pdfDoc.getPages();
   const firstPg = pages[0];
-  console.log(name);
   if (name != null) {
     name = name.trim();
     name = titleCase(name);
@@ -137,7 +135,6 @@ button.addEventListener(
       return;
     }
     verifyUser(tathvaID).then((user) => {
-      console.log(user);
       if (user) {
         window.location.href =
           window.location.href.split("?")[0] + "?id=" + tathvaID;

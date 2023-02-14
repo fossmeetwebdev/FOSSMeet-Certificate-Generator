@@ -1,6 +1,5 @@
 :root {
   --orange: #ff7700;
-  --gray: #f8f9fa;
 }
 
 .App {
@@ -101,19 +100,6 @@ button:focus {
 button:active {
   background-color: #c85000;
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
-}
-
-.btn {
-  display: inline-block;
-  background: rgba(0, 0, 0, 0.6);
-  color: #ffffff;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 0;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 20px;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.6);
 }
 
 #download-button {
