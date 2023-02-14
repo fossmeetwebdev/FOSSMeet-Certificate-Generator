@@ -97,11 +97,11 @@ const generateRagamPDF = async (name) => {
   elem.setAttribute("width", "40");
   var anchor = document.createElement("a");
   anchor.href = uri;
-  anchor.download = "Certificate.pdf";
+  anchor.download = "FOSSMeet'23 Certificate.pdf";
   anchor.appendChild(elem);
   main.appendChild(anchor);
-  var enter = document.createElement("br");
-  main.appendChild(enter);
+  // var enter = document.createElement("br");
+  // main.appendChild(enter);
 };
 
 var button = document.getElementById("button");

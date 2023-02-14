@@ -3,12 +3,12 @@
     "fontName": "GreatVibes-Regular.ttf",
     "fontSize": 48,
     "fontColor": {
-      "r": 0.23,
-      "g": 0.21,
-      "b": 0.21
+      "r": 0.824,
+      "g": 0.417,
+      "b": 0
     },
     "x": 165,
-    "y": 290
+    "y": 300
   },
   "qrCode": {
     "x": 520,
