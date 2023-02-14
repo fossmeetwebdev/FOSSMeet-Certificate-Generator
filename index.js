@@ -92,11 +92,9 @@ const generateRagamPDF = async (name) => {
 
   const uri = await pdfDoc.saveAsBase64({ dataUri: true });
 
-  var h = document.createElement("H2");
-  // main.removeChild(main.lastElementChild);
-  main.appendChild(h);
   var elem = document.createElement("img");
-  elem.setAttribute("src", "./static/img/download-icon.png");
+  elem.setAttribute("id", "download-button");
+  elem.setAttribute("src", "./static/img/download-icon-white.svg");
   elem.setAttribute("height", "40");
   elem.setAttribute("width", "40");
   var anchor = document.createElement("a");
