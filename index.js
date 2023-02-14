@@ -3,6 +3,12 @@
 const base = "/certificates";
 
 const addText = (text) => {
+  let h3s = document.querySelectorAll("h3");
+  for (let i = 0; i < h3s.length; i++) {
+    h3 = h3s[i];
+    console.log("here");
+    h3.parentNode.removeChild(h3);
+  }
   let main = document.querySelector(".main");
   var h = document.createElement("H3");
   var t = document.createTextNode(text);
@@ -87,13 +93,10 @@ const generateRagamPDF = async (name) => {
   const uri = await pdfDoc.saveAsBase64({ dataUri: true });
 
   var h = document.createElement("H2");
-  var t = document.createTextNode("Download");
-  h.appendChild(t);
-  //   main.removeChild(main.lastElementChild);
+  // main.removeChild(main.lastElementChild);
   main.appendChild(h);
   var elem = document.createElement("img");
   elem.setAttribute("src", "./static/img/download-icon.png");
-  elem.setAttribute("id", "download-button");
   elem.setAttribute("height", "40");
   elem.setAttribute("width", "40");
   var anchor = document.createElement("a");
@@ -138,7 +141,8 @@ button.addEventListener(
     verifyUser(tathvaID).then((user) => {
       console.log(user);
       if (user) {
-        window.location.href = window.location.href + "?id=" + tathvaID;
+        window.location.href =
+          window.location.href.split("?")[0] + "?id=" + tathvaID;
       } else {
         addText("Invalid Tathva ID");
       }

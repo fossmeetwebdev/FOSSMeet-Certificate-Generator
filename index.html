@@ -6,34 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="icon" href="certificates/static/img/favicon.png" /> -->
     <link rel="stylesheet" href="styles.css">
-    <title>FOSSCell Certificates</title>
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+    <title>FOSSMeet'23 Certificates</title>
     <style>
 
     </style>
 </head>
 <body>
-    <div id="vanta-canvas">
-        <div class="App">
-            <!-- <div class="Logos">
-              <img src="/certificates/static/img/2Flame.png" style="width: 300px; margin-top: -50px; margin-bottom: -50px; max-width: 80vh;">
-            </div> -->
-            <h1 class="title">FOSSCell Certificates</h1>
-            <div id="form">
-                <form class="search-form">
-                    <div class='form-control'>
-                        <input class="textinput" type='text' id='ID' placeholder="Tathva ID"></input>
-                        <input class='btn btn-block' type='submit' id='button' value='Search'></input>
-                    </div>
-                </form>
-            </div>
-            <main role="main" class="main">
-            </main>
+    <div class="App">
+        <div class="logos">
+            <img src="/static/img/fosscell-logo.png" alt="FOSSCell Logo">
+            <img src="/static/img/csea-logo.jpg" alt="CSEA Logo">
         </div>
-        
-        <script src="./index.js"></script>
-        <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-        <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+        <h1>FOSSMeet'23 Certificates</h1>
+        <form id="form">
+            <input class="form-control" type='text' id='ID' placeholder="Registration ID"></input>
+            <button type='submit' id='button'>Search</button>
+        </form>
+        <main role="main" class="main">
+        </main>
     </div>
+    
+    <script src="./index.js"></script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 </body>
 </html>
