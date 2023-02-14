@@ -46,7 +46,7 @@ const generateRagamPDF = async (name) => {
     return res.arrayBuffer();
   });
 
-  const exFont = await fetch("./fonts/cac_champagne.ttf").then((res) => {
+  const exFont = await fetch("./fonts/GreatVibes-Regular.ttf").then((res) => {
     return res.arrayBuffer();
   });
 
