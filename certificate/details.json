@@ -1,0 +1,19 @@
+{
+  "name": {
+    "fontName": "GreatVibes-Regular.ttf",
+    "fontSize": 48,
+    "fontColor": {
+      "r": 0.23,
+      "g": 0.21,
+      "b": 0.21
+    },
+    "x": 165,
+    "y": 290
+  },
+  "qrCode": {
+    "x": 520,
+    "y": 30,
+    "foreground": "#3B3837",
+    "background": "#ffffff"
+  }
+}
