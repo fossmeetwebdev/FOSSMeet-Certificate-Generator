@@ -139,7 +139,8 @@ button.addEventListener(
         window.location.href =
           window.location.href.split("?")[0] + "?id=" + regID;
       } else {
-        addText("Invalid Registration ID");
+        document.getElementsByClassName('error')[0].classList.add('show');
+        setTimeout(()=> document.getElementsByClassName('error')[0].classList.remove('show'),2500);
       }
     });
   },
