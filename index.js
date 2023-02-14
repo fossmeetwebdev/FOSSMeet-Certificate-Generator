@@ -92,7 +92,7 @@ const generateRagamPDF = async (name) => {
 
   var elem = document.createElement("img");
   elem.setAttribute("id", "download-button");
-  elem.setAttribute("src", "./static/img/download-icon-white.svg");
+  elem.setAttribute("src", "./static/img/download-icon.svg");
   elem.setAttribute("height", "40");
   elem.setAttribute("width", "40");
   var anchor = document.createElement("a");
