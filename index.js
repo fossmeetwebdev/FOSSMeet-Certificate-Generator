@@ -15,10 +15,10 @@ const addText = (text) => {
   main.appendChild(h);
 };
 
-const verifyUser = async (tathvaID) => {
+const verifyUser = async (regID) => {
   let res = await fetch("./participants.json");
   res = await res.json();
-  if (res[tathvaID]) return res[tathvaID];
+  if (res[regID]) return res[regID];
   return null;
 };
 
@@ -112,14 +112,14 @@ const category = urlParams.get("category");
 window.onload = async (event) => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const tathvaID = urlParams.get("id");
-  if (tathvaID) {
-    verifyUser(tathvaID).then((user) => {
+  const regID = urlParams.get("id");
+  if (regID) {
+    verifyUser(regID).then((user) => {
       if (user) {
         document.getElementById("form").style.display = "none";
         generateRagamPDF(user);
       } else {
-        addText("Invalid Tathva ID");
+        addText("Invalid Registration ID");
       }
     });
   }
@@ -129,17 +129,17 @@ button.addEventListener(
   "click",
   function (e) {
     e.preventDefault();
-    var tathvaID = ID.value;
-    if (tathvaID.length === 0) {
+    var regID = ID.value;
+    if (regID.length === 0) {
       alert("Enter your ID");
       return;
     }
-    verifyUser(tathvaID).then((user) => {
+    verifyUser(regID).then((user) => {
       if (user) {
         window.location.href =
-          window.location.href.split("?")[0] + "?id=" + tathvaID;
+          window.location.href.split("?")[0] + "?id=" + regID;
       } else {
-        addText("Invalid Tathva ID");
+        addText("Invalid Registration ID");
       }
     });
   },
