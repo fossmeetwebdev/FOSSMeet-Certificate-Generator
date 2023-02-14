@@ -84,8 +84,8 @@ const generateRagamPDF = async (name) => {
   firstPg.drawImage(qrImage, {
     x: certificate.qrCode.x,
     y: certificate.qrCode.y,
-    width: 150,
-    height: 150,
+    width: 125,
+    height: 125,
   });
 
   const uri = await pdfDoc.saveAsBase64({ dataUri: true });
