@@ -119,7 +119,8 @@ window.onload = async (event) => {
         document.getElementById("form").style.display = "none";
         generateRagamPDF(user);
       } else {
-        addText("Invalid Registration ID");
+        document.getElementsByClassName('error')[0].classList.add('show');
+        setTimeout(()=> document.getElementsByClassName('error')[0].classList.remove('show'),2500);
       }
     });
   }
