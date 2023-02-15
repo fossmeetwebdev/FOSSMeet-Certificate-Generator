@@ -60,8 +60,8 @@ const generateRagamPDF = async (name) => {
   if (name != null) {
     name = name.trim();
     name = titleCase(name);
-    firstPg.drawText(name, {
-      size: certificate.name.fontSize,
+    let opts = {
+      // size: certificate.name.fontSize,
       x: certificate.name.x,
       y: certificate.name.y,
       color: rgb(
@@ -70,7 +70,13 @@ const generateRagamPDF = async (name) => {
         certificate.name.fontColor.b
       ),
       font: myFont,
-    });
+    }
+
+    name.length > 18 ?
+      opts.size = 45 :
+      opts.size = 60
+
+    firstPg.drawText(name, opts);
   }
 
   var qr = new QRious({
