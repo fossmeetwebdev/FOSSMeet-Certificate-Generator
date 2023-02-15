@@ -136,7 +136,7 @@ button.addEventListener(
   "click",
   function (e) {
     e.preventDefault();
-    var regID = ID.value;
+    var regID = ID.value.toUpperCase();
     if (regID.length === 0) {
       alert("Enter your ID");
       return;
